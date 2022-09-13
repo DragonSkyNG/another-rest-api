@@ -14,7 +14,7 @@ export const createDog = async (req, res) => {
 export const getAllDogs = async (req, res) => {
   try {
     const dog = await dogModel.find();
-    res.send(200).json(dog);
+    res.status(200).json(dog);
   } catch (error) {
     console.error(error);
     res.status(400).send(error);

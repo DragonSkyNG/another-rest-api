@@ -13,8 +13,8 @@ export const createBird = async (req, res) => {
 
 export const getAllBirds = async (req, res) => {
   try {
-    const birds = await birdModel.find();
-    res.send(200).json(birds);
+    const birds = await birdModel.find({});
+    res.status(200).json(birds);
   } catch (error) {
     console.error(error);
     res.status(400).send(error);
@@ -23,9 +23,7 @@ export const getAllBirds = async (req, res) => {
 
 export const getBirdById = async (req, res) => {
   try {
-    const bird = await birdModel.findOne({
-      $or: [{ _id: req.params.id }, { name: req.params.id }],
-    });
+    const bird = await birdModel.findOne({ _id: req.params.id });
     res.status(200).json(bird);
   } catch (error) {
     console.error(error);

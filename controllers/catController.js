@@ -14,7 +14,7 @@ export const createCat = async (req, res) => {
 export const getAllCats = async (req, res) => {
   try {
     const cats = await catModel.find();
-    res.send(200).json(cats);
+    res.status(200).json(cats);
   } catch (error) {
     console.error(error);
     res.status(400).send(error);
@@ -23,9 +23,7 @@ export const getAllCats = async (req, res) => {
 
 export const getCatById = async (req, res) => {
   try {
-    const cat = await catModel.findOne({
-      $or: [{ _id: req.params.id }, { name: req.params.id }],
-    });
+    const cat = await catModel.findOne({ _id: req.params.id });
     res.status(200).json(cat);
   } catch (error) {
     console.error(error);
@@ -36,9 +34,7 @@ export const getCatById = async (req, res) => {
 export const updateCatById = async (req, res) => {
   try {
     const cat = await catModel.findOneAndUpdate(
-      {
-        $or: [{ _id: req.params.id }, { name: req.params.id }],
-      },
+      { name: req.params.id },
       { $set: req.body },
       { new: true }
     );

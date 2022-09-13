@@ -1,3 +1,6 @@
+import birdModel from "../models/birdModel.js";
+import catModel from "../models/catModel.js";
+import dogModel from "../models/dogModel.js";
 import favoritePlaceModel from "../models/favoritePlaceModel.js";
 
 export const createFavoritePlace = async (req, res) => {
@@ -14,7 +17,7 @@ export const createFavoritePlace = async (req, res) => {
 export const getAllFavoritePlaces = async (req, res) => {
   try {
     const favoritePlace = await favoritePlaceModel.find();
-    res.send(200).json(favoritePlace);
+    res.status(200).json(favoritePlace);
   } catch (error) {
     console.error(error);
     res.status(400).send(error);
@@ -24,7 +27,7 @@ export const getAllFavoritePlaces = async (req, res) => {
 export const getFavoritePlaceById = async (req, res) => {
   try {
     const favoritePlace = await favoritePlaceModel.findOne({
-      $or: [{ _id: req.params.id }, { name: req.params.id }],
+      _id: req.params.id,
     });
     res.status(200).json(favoritePlace);
   } catch (error) {
@@ -58,5 +61,27 @@ export const deleteFavoritePlaceById = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(400).send(error);
+  }
+};
+
+const animalModels = {
+  ["bird"]: birdModel,
+  ["cat"]: catModel,
+  ["dog"]: dogModel,
+};
+
+export const getAllAnimals = async (req, res) => {
+  try {
+    const allFavoritePlaces = await favoritePlaceModel.findOne({
+      place: req.params.name,
+    });
+    const animals = await Promise.all(
+      allFavoritePlaces.animal.map(async (animal) => {
+        return await animalModels[animal.entity].findOne({"_id":animal.id});
+      })
+    );
+    res.status(200).json(animals);
+  } catch (error) {
+    console.error(error);
   }
 };
