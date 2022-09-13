@@ -1,3 +1,4 @@
+import { response } from "express";
 import birdModel from "../models/birdModel.js";
 import catModel from "../models/catModel.js";
 import dogModel from "../models/dogModel.js";
@@ -64,23 +65,34 @@ export const deleteFavoritePlaceById = async (req, res) => {
   }
 };
 
-const animalModels = {
-  ["bird"]: birdModel,
-  ["cat"]: catModel,
-  ["dog"]: dogModel,
-};
-
 export const getAllAnimals = async (req, res) => {
+  const animalModels = {
+    ["bird"]: birdModel,
+    ["cat"]: catModel,
+    ["dog"]: dogModel,
+  };
   try {
     const allFavoritePlaces = await favoritePlaceModel.findOne({
       place: req.params.name,
     });
     const animals = await Promise.all(
       allFavoritePlaces.animal.map(async (animal) => {
-        return await animalModels[animal.entity].findOne({"_id":animal.id});
+        return await animalModels[animal.entity].findOne({ _id: animal.id });
       })
     );
     res.status(200).json(animals);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getMostFavoritePlace = async (req, res) => {
+  try {
+    const favoritePlaces = await favoritePlaceModel.find();
+    const popularPlace = favoritePlaces.reduce((prev, curr) => {
+      return prev.animal.length > curr.animal.length ? prev : curr;
+    });
+    res.status(200).json(popularPlace.place);
   } catch (error) {
     console.error(error);
   }
