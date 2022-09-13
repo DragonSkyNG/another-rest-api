@@ -1,11 +1,17 @@
 import express from "express";
+import {
+  createDog,
+  deleteDogById,
+  getAllDogs,
+  getDogById,
+  updateDogById,
+} from "../controllers/dogController";
 const router = express.Router();
 
-router.post("/create");
-router.get("/get");
-router.get("/get/:id");
-router.post("/update/:id");
-router.post("/delete");
-router.post("/delete/:id");
+router.post("/create", createDog);
+router.get("/get", getAllDogs);
+router.get("/get/:id", getDogById);
+router.post("/update/:id", updateDogById);
+router.post("/delete/:id", deleteDogById);
 
 export default router;

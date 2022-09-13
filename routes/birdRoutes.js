@@ -1,11 +1,17 @@
 import express from "express";
+import {
+  createBird,
+  deleteBirdById,
+  getAllBirds,
+  getBirdById,
+  updateBirdById,
+} from "../controllers/birdController.js";
 const router = express.Router();
 
-router.post("/create");
-router.get("/get");
-router.get("/get/:id");
-router.post("/update/:id");
-router.post("/delete");
-router.post("/delete/:id");
+router.post("/create", createBird);
+router.get("/get", getAllBirds);
+router.get("/get/:id", getBirdById);
+router.post("/update/:id", updateBirdById);
+router.post("/delete/:id", deleteBirdById);
 
 export default router;

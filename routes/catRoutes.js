@@ -1,11 +1,17 @@
 import express from "express";
+import {
+  createCat,
+  deleteCatById,
+  getAllCats,
+  getCatById,
+  updateCatById,
+} from "../controllers/catController";
 const router = express.Router();
 
-router.post("/create");
-router.get("/get");
-router.get("/get/:id");
-router.post("/update/:id");
-router.post("/delete");
-router.post("/delete/:id");
+router.post("/create", createCat);
+router.get("/get", getAllCats);
+router.get("/get/:id", getCatById);
+router.post("/update/:id", updateCatById);
+router.post("/delete/:id", deleteCatById);
 
 export default router;
