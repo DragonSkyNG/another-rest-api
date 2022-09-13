@@ -5,13 +5,13 @@ import {
   getAllDogs,
   getDogById,
   updateDogById,
-} from "../controllers/dogController";
+} from "../controllers/dogController.js";
 const router = express.Router();
 
 router.post("/create", createDog);
 router.get("/get", getAllDogs);
 router.get("/get/:id", getDogById);
-router.post("/update/:id", updateDogById);
-router.post("/delete/:id", deleteDogById);
+router.put("/update/:id", updateDogById);
+router.delete("/delete/:id", deleteDogById);
 
 export default router;

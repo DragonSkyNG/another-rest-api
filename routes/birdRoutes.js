@@ -11,7 +11,7 @@ const router = express.Router();
 router.post("/create", createBird);
 router.get("/get", getAllBirds);
 router.get("/get/:id", getBirdById);
-router.post("/update/:id", updateBirdById);
-router.post("/delete/:id", deleteBirdById);
+router.put("/update/:id", updateBirdById);
+router.delete("/delete/:id", deleteBirdById);
 
 export default router;

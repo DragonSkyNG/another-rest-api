@@ -5,13 +5,13 @@ import {
   getAllFavoritePlaces,
   getFavoritePlaceById,
   updateFavoritePlaceById,
-} from "../controllers/favoritePlaceController";
+} from "../controllers/favoritePlaceController.js";
 const router = express.Router();
 
 router.post("/create", createFavoritePlace);
 router.get("/get", getAllFavoritePlaces);
 router.get("/get/:id", getFavoritePlaceById);
-router.post("/update/:id", updateFavoritePlaceById);
-router.post("/delete/:id", deleteFavoritePlaceById);
+router.put("/update/:id", updateFavoritePlaceById);
+router.delete("/delete/:id", deleteFavoritePlaceById);
 
 export default router;
